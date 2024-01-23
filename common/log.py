@@ -16,11 +16,11 @@ from pygments.formatters import TerminalFormatter
 from .utils import filterFileName, addToGlobalNamespace
 from .variable import debug_mode, log_length_limit, log_file
 
-if ((not os.path.exists("tmp")) and log_file):
-    try:
-        os.mkdir("tmp")
-    except:
-        pass
+# if ((not os.path.exists("tmp")) and log_file):
+#     try:
+#         os.mkdir("tmp")
+#     except:
+#         pass
 
 
 def highlight_error(error):
@@ -72,11 +72,11 @@ class log:
             if filename:
                 filename = filterFileName(filename)
             else:
-                filename = './tmp/' + module_name + '.log'
+                filename = '/tmp/' + module_name + '.log'
             file_handler = logging.FileHandler(filename, encoding="utf-8")
             file_handler.setFormatter(file_formatter)
             file_handler_ = logging.FileHandler(
-                "./tmp/console_full.log", encoding="utf-8")
+                "/tmp/console_full.log", encoding="utf-8")
             file_handler_.setFormatter(file_formatter)
             self._logger.addHandler(file_handler_)
             self._logger.addHandler(file_handler)
