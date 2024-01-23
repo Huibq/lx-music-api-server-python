@@ -240,7 +240,7 @@ default = {
 
 
 def handle_default_config():
-    with open("./config.json", "w", encoding="utf-8") as f:
+    with open("/tmp/config.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(default, indent=2, ensure_ascii=False,
                 escape_forward_slashes=False))
         f.close()
@@ -435,7 +435,7 @@ def push_to_list(key, obj):
 
 def write_config(key, value):
     config = None
-    with open('config.json', 'r', encoding='utf-8') as f:
+    with open('/tmp/config.json', 'r', encoding='utf-8') as f:
         config = json.load(f)
 
     keys = key.split('.')
@@ -447,7 +447,7 @@ def write_config(key, value):
 
     current[keys[-1]] = value
     variable.config = config
-    with open('config.json', 'w', encoding='utf-8') as f:
+    with open('/tmp/config.json', 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=2, ensure_ascii=False, escape_forward_slashes=False)
         f.close()
 
@@ -539,17 +539,17 @@ def write_data(key, value):
 
 def initConfig():
     try:
-        with open("./config.json", "r", encoding="utf-8") as f:
+        with open("/tmp/config.json", "r", encoding="utf-8") as f:
             try:
                 variable.config = json.loads(f.read())
                 if (not isinstance(variable.config, dict)):
                     logger.warning('配置文件并不是一个有效的字典，使用默认值')
                     variable.config = default
-                    with open("./config.json", "w", encoding="utf-8") as f:
+                    with open("/tmp/config.json", "w", encoding="utf-8") as f:
                         f.write(json.dumps(variable.config, indent=2, ensure_ascii=False, escape_forward_slashes=False))
                         f.close()
             except:
-                if os.path.getsize("./config.json") != 0:
+                if os.path.getsize("/tmp/config.json") != 0:
                     logger.error("配置文件加载失败，请检查是否遵循JSON语法规范")
                     sys.exit(1)
                 else:
